@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - ProGesture</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url("https://upload.wikimedia.org/wikipedia/commons/5/5a/PUP_College_of_Engineering_and_Architecture_Building.jpg") no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    /* Top Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background: #f5f5f5;
+      box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .navbar-left img {
+      height: 40px;
+    }
+
+    .navbar-left h1 {
+      font-size: 20px;
+      margin: 0;
+      color: #800000;
+    }
+
+    .navbar-links a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .navbar-links a:hover {
+      color: #800000;
+    }
+
+    .logout-btn {
+      background: #800000;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    .logout-btn:hover {
+      background: #a00000;
+    }
+
+    /* Layout */
+    .container {
+      display: flex;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 200px;
+      background: #800000;
+      color: white;
+      padding: 20px;
+      min-height: calc(100vh - 60px);
+    }
+
+    .sidebar h2 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: yellow;
+    }
+
+    .sidebar a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin: 15px 0;
+      font-size: 15px;
+    }
+
+    .sidebar a:hover {
+      color: #ffd700;
+    }
+
+    .sidebar i {
+      margin-right: 10px;
+    }
+
+    /* Main content */
+    .main {
+      flex-grow: 1;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .file-button {
+      display: block;
+      width: 300px;
+      margin: 20px auto;
+      padding: 15px;
+      background: #800000;
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      text-decoration: none;
+      text-align: center;
+      transition: background 0.3s;
+    }
+
+    .file-button:hover {
+      background: #a00000;
+    }
+
+    /* Floating + button */
+    .add-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #800000;
+      color: white;
+      font-size: 28px;
+      padding: 15px 20px;
+      border-radius: 50%;
+      text-decoration: none;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .add-btn:hover {
+      background: #a00000;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="navbar-left">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Polytechnic_University_of_the_Philippines_%28PUP%29_logo.png" alt="PUP Logo">
+      <h1>PROGESTURE</h1>
+    </div>
+    <div class="navbar-links">
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="#features">Features</a>
+      <a href="#team">Meet Our Team</a>
+    </div>
+    <a href="{{ url_for('home') }}" class="logout-btn">Log Out</a>
+  </div>
+
+  <!-- Sidebar + Main -->
+  <div class="container">
+    <div class="sidebar">
+      <h2>Menu</h2>
+      <a href="#"><i class="fa-solid fa-folder"></i> All Files</a>
+      <a href="#"><i class="fa-solid fa-star"></i> Favorites</a>
+      <a href="#"><i class="fa-solid fa-clock"></i> Recent</a>
+    </div>
+
+    <div class="main">
+      <a href="#" class="file-button">PDF</a>
+      <a href="#" class="file-button">DOCUMENT</a>
+      <a href="{{ url_for('presentation') }}" class="file-button">PRESENTATION</a>
+      <a href="#" class="file-button">IMAGE</a>
+      <a href="#" class="file-button">VIDEOS</a>
+    </div>
+  </div>
+
+  <!-- Floating Add Button -->
+  <a href="#" class="add-btn"><i class="fa-solid fa-plus"></i></a>
+</body>
+</html>

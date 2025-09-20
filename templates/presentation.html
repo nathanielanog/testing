@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Presentations - ProGesture</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background: #f5f5f5;
+      box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .navbar-left img {
+      height: 40px;
+    }
+
+    .navbar-left h1 {
+      font-size: 20px;
+      margin: 0;
+      color: #800000;
+    }
+
+    .navbar-links a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .navbar-links a:hover {
+      color: #800000;
+    }
+
+    .logout-btn {
+      background: #800000;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    .logout-btn:hover {
+      background: #a00000;
+    }
+
+    /* Layout */
+    .container {
+      display: flex;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 200px;
+      background: #800000;
+      color: white;
+      padding: 20px;
+      min-height: calc(100vh - 60px);
+    }
+
+    .sidebar h2 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: yellow;
+    }
+
+    .sidebar a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      margin: 15px 0;
+      font-size: 15px;
+    }
+
+    .sidebar a:hover {
+      color: #ffd700;
+    }
+
+    .sidebar i {
+      margin-right: 10px;
+    }
+
+    /* Main content */
+    .main {
+      flex-grow: 1;
+      padding: 30px;
+    }
+
+    .main h2 {
+      margin-bottom: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #800000;
+      color: white;
+      border-radius: 8px;
+      overflow: hidden;
+      text-align: center;
+      padding-bottom: 10px;
+    }
+
+    .card .preview {
+      background: #f5f5f5;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card .preview i {
+      font-size: 40px;
+      color: #aaa;
+    }
+
+    .card .actions {
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      font-size: 14px;
+    }
+
+    .card .actions a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .card .actions a:hover {
+      text-decoration: underline;
+    }
+
+    .card .title {
+      margin-top: 5px;
+      font-weight: bold;
+    }
+
+    /* Floating Add Button */
+    .add-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #800000;
+      color: white;
+      font-size: 28px;
+      padding: 15px 20px;
+      border-radius: 50%;
+      text-decoration: none;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .add-btn:hover {
+      background: #a00000;
+    }
+
+    /* Upload modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 400px;
+      text-align: center;
+    }
+
+    .modal-content h3 {
+      margin-bottom: 15px;
+      color: #800000;
+    }
+
+    .modal-content input {
+      margin: 10px 0;
+    }
+
+    .close-btn {
+      float: right;
+      cursor: pointer;
+      font-weight: bold;
+      color: #800000;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="navbar-left">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Polytechnic_University_of_the_Philippines_%28PUP%29_logo.png" alt="PUP Logo">
+      <h1>PROGESTURE</h1>
+    </div>
+    <div class="navbar-links">
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="#features">Features</a>
+      <a href="#team">Meet Our Team</a>
+    </div>
+    <a href="{{ url_for('home') }}" class="logout-btn">Log Out</a>
+  </div>
+
+  <!-- Sidebar + Main -->
+  <div class="container">
+    <div class="sidebar">
+      <h2>Menu</h2>
+      <a href="#"><i class="fa-solid fa-folder"></i> All Files</a>
+      <a href="#"><i class="fa-solid fa-star"></i> Favorites</a>
+      <a href="#"><i class="fa-solid fa-clock"></i> Recent</a>
+    </div>
+
+    <div class="main">
+      <h2>Presentation</h2>
+      <div class="grid">
+        {% for file in files %}
+        <div class="card">
+          <div class="preview">
+            {% if file.endswith('.pdf') %}
+              <i class="fa-solid fa-file-pdf"></i>
+            {% elif file.endswith('.pptx') %}
+              <i class="fa-solid fa-file-powerpoint"></i>
+            {% else %}
+              <i class="fa-solid fa-file"></i>
+            {% endif %}
+          </div>
+          <div class="actions">
+            <a href="#">❤ Favorite</a>
+            <a href="{{ url_for('uploaded_file', filename=file) }}" target="_blank">📂 Open</a>
+            <form method="POST" action="{{ url_for('delete_file', filename=file) }}" style="display:inline;">
+              <button type="submit" style="background:none;border:none;color:white;cursor:pointer;">🗑 Delete</button>
+            </form>
+          </div>
+          <div class="title">{{ file }}</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Add Button -->
+  <a href="#" class="add-btn" onclick="openModal()"><i class="fa-solid fa-plus"></i></a>
+
+  <!-- Upload Modal -->
+  <div class="modal" id="uploadModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h3>Upload Presentation</h3>
+      <form method="POST" enctype="multipart/form-data" action="{{ url_for('presentation') }}">
+        <input type="file" name="file" accept=".pdf,.pptx" required>
+        <br>
+        <button type="submit" style="background:#800000; color:white; padding:8px 15px; border:none; border-radius:5px; cursor:pointer;">Upload</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById("uploadModal").style.display = "flex";
+    }
+    function closeModal() {
+      document.getElementById("uploadModal").style.display = "none";
+    }
+  </script>
+</body>
+</html>

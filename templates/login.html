@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ProGesture - Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url("{{ url_for('static', filename='images/pup_bg.jpg') }}") no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 8px;
+      padding: 40px 30px;
+      max-width: 350px;
+      width: 100%;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    .login-container img {
+      width: 100px;
+      margin-bottom: 15px;
+    }
+
+    .login-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #800000;
+      margin-bottom: 20px;
+    }
+
+    .login-input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 10px;
+      background: #800000;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 15px;
+    }
+
+    .login-button:hover {
+      background: #660000;
+    }
+
+    .login-links {
+      font-size: 13px;
+    }
+
+    .login-links a {
+      color: #800000;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .login-links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <img src="{{ url_for('static', filename='images/pup_logo.png') }}" alt="PUP Logo">
+    <div class="login-title">USER LOGIN</div>
+
+    {% if error %}
+      <p style="color: red; font-size: 14px;">{{ error }}</p>
+    {% endif %}
+
+    <form action="/login" method="POST">
+      <input type="text" class="login-input" name="username" placeholder="Enter your Username" required>
+      <input type="password" class="login-input" name="password" placeholder="Password" required>
+      <button type="submit" class="login-button">Log In</button>
+    </form>
+
+    <div class="login-links">
+      <p><a href="#">I forgot my password</a></p>
+      <p><a href="#">I don’t have an account</a></p>
+    </div>
+  </div>
+</body>
+</html>
